@@ -9,12 +9,13 @@ from pavilion import plugins
 from pavilion import output
 from pavilion.unittest import PavTestCase
 
+
 class StatusTests(PavTestCase):
 
     def setUp(self):
         plugins.initialize_plugins(self.pav_cfg)
 
-    def teatDown(self):
+    def tearDown(self):
         plugins._reset_plugins()
 
     def test_ls(self):
@@ -29,7 +30,7 @@ class StatusTests(PavTestCase):
         arg_sets = (
             ['ls', str(test.id)],
             ['ls', str(test.id), '--tree'],
-            ['ls', str(test.id), '--subdir', 'build' ],
+            ['ls', str(test.id), '--subdir', 'build'],
         )
 
         for arg_set in arg_sets:
