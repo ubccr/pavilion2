@@ -58,6 +58,8 @@ slurm kickoff script.
             lines.append('#SBATCH --array {s._conf[array]}'.format(s=self))
         if self._conf.get('gres') is not None:
             lines.append('#SBATCH --gres {s._conf[gres]}'.format(s=self))
+        if self._conf.get('constraint') is not None:
+            lines.append('#SBATCH --constraint {s._conf[constraint]}'.format(s=self))
 
         lines.append('#SBATCH -N {s._nodes}'.format(s=self))
         tasks = self._conf['tasks_per_node']
@@ -375,6 +377,9 @@ class Slurm(SchedulerPlugin):
             yc.StrElem('gres',
                        help_text="The comma delimited list of generic consumable resources "
                                  "this test should use."),
+            yc.StrElem('constraint',
+                       help_text="Specify which features are required for this test to "
+                                 "run."),
             yc.StrElem('reservation',
                        help_text="The reservation that this test should "
                                  "run under."),
